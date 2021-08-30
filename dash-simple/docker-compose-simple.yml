@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    
+    links:
+      - dashsimple1
+    restart: always
+    
+    environment: 
+      DOMAINS: '
+      user:word@dashsimple1.arthoughts.local -> http://dashsimple1:8050
+      '
+      STAGE: local
+      FORCE_RENEW: 'false'
+
+  dashsimple1:
+    build:
+
+      context: ./
+      dockerfile: dockerfile-simple
+    environment: 
+      - VIRTUAL_HOST=dashsimple1.arthoughts.local
+  
+      
